@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     `kotlin-dsl`
 }
@@ -16,6 +14,11 @@ gradlePlugin {
         register("androidApplication") {
             id = "dev.atakanakin.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
+        }
+
+        register("androidApplicationFlavors") {
+            id = "dev.atakanakin.android.application.flavors"
+            implementationClass = "AndroidApplicationFlavorsConventionPlugin"
         }
 
         register("androidLibrary") {
