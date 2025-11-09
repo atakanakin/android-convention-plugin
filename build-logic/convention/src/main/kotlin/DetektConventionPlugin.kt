@@ -35,6 +35,10 @@ class DetektConventionPlugin : Plugin<Project> {
                 if (variantName.equals("internalDebug", ignoreCase = true)) {
                     enabled = false
                 } else {
+                    tasks.findByName("spotlessCheck")?.let { spotlessTask ->
+                        dependsOn(spotlessTask)
+                    }
+
                     val assembleTaskName = "assemble${variantName}"
                     tasks.findByName(assembleTaskName)?.let { assembleTask ->
                         assembleTask.dependsOn(this)
