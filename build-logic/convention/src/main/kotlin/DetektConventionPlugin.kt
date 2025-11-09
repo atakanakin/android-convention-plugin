@@ -22,6 +22,24 @@ class DetektConventionPlugin : Plugin<Project> {
                     txt.required.set(false)
                     sarif.required.set(false)
                 }
+
+                val variantName = name.removePrefix("detekt")
+
+                if (variantName.isEmpty() ||
+                    variantName.equals("Main", ignoreCase = true) ||
+                    variantName.equals("Test", ignoreCase = true)
+                ) {
+                    return@withType
+                }
+
+                if (variantName.equals("internalDebug", ignoreCase = true)) {
+                    enabled = false
+                } else {
+                    val assembleTaskName = "assemble${variantName}"
+                    tasks.findByName(assembleTaskName)?.let { assembleTask ->
+                        assembleTask.dependsOn(this)
+                    }
+                }
             }
         }
     }
