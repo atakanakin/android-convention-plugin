@@ -17,14 +17,7 @@ class SpotlessConventionPlugin : Plugin<Project> {
                         .editorConfigOverride(
                             mapOf(
                                 "max_line_length" to "120",
-                                "ktlint_standard_no-wildcard-imports" to "disabled",
-                                "ktlint_standard_package-name" to "disabled",
-                                "ktlint_standard_import-ordering" to "disabled",
-                                "ktlint_standard_trailing-comma-on-call-site" to "disabled",
-                                "ktlint_standard_trailing-comma-on-declaration-site" to "disabled",
-                                "ktlint_standard_function-naming" to "disabled",
-                                "ij_kotlin_allow_trailing_comma" to "true",
-                                "ij_kotlin_allow_trailing_comma_on_call_site" to "true",
+                                "ktlint_function_naming_ignore_when_annotated_with" to "Composable",
                             )
                         )
                     trimTrailingWhitespace()
