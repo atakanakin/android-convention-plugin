@@ -8,6 +8,7 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.detekt.gradlePlugin)
+    compileOnly(libs.spotless.gradlePlugin)
 }
 
 gradlePlugin {
@@ -30,6 +31,11 @@ gradlePlugin {
         register("detekt") {
             id = "dev.atakanakin.detekt"
             implementationClass = "DetektConventionPlugin"
+        }
+
+        register("spotless") {
+            id = "dev.atakanakin.spotless"
+            implementationClass = "SpotlessConventionPlugin"
         }
     }
 }
