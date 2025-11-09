@@ -634,13 +634,13 @@ formatting:
     indentSize: 4
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/functionalTest/**', '**/integrationTest/**' ]
   TrailingCommaOnCallSite:
-    active: false
+    active: true
     autoCorrect: true
-    useTrailingCommaOnCallSite: false
+    useTrailingCommaOnCallSite: true
   TrailingCommaOnDeclarationSite:
-    active: false
+    active: true
     autoCorrect: true
-    useTrailingCommaOnDeclarationSite: false
+    useTrailingCommaOnDeclarationSite: true
   TryCatchFinallySpacing:
     active: true
     autoCorrect: true
