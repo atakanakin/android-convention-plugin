@@ -33,6 +33,12 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     }
                 }
 
+                lint {
+                    warningsAsErrors = false
+                    abortOnError = true
+                    checkReleaseBuilds = true
+                }
+
                 compileOptions {
                     sourceCompatibility = JavaVersion.VERSION_17
                     targetCompatibility = JavaVersion.VERSION_17
@@ -45,6 +51,31 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<KotlinProjectExtension> {
                 jvmToolchain(17)
+            }
+
+            afterEvaluate {
+                tasks.configureEach {
+                    if (name.startsWith("lint", ignoreCase = true) &&
+                        name.contains("internalDebug", ignoreCase = true)
+                    ) {
+                        enabled = false
+                    }
+                }
+                tasks.configureEach {
+                    if (name.startsWith("assemble", ignoreCase = true)) {
+                        val variantName = name.removePrefix("assemble")
+                        if (variantName.equals(
+                                "internalDebug",
+                                ignoreCase = true
+                            )
+                        ) return@configureEach
+
+                        val lintTaskName = "lint$variantName"
+                        tasks.findByName(lintTaskName)?.let { lintTask ->
+                            dependsOn(lintTask)
+                        }
+                    }
+                }
             }
         }
     }

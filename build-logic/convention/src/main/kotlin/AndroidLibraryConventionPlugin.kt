@@ -32,6 +32,12 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     }
                 }
 
+                lint {
+                    warningsAsErrors = false
+                    abortOnError = true
+                    checkReleaseBuilds = true
+                }
+
                 compileOptions {
                     sourceCompatibility = JavaVersion.VERSION_17
                     targetCompatibility = JavaVersion.VERSION_17
@@ -44,6 +50,19 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<KotlinProjectExtension> {
                 jvmToolchain(17)
+            }
+
+            tasks.configureEach {
+                // Tüm lint görevlerini bul
+                if (name.startsWith("lint", ignoreCase = true)) {
+                    // internalDebug varyantını devre dışı bırak
+                    if (name.contains("internalDebug", ignoreCase = true)) {
+                        enabled = false
+                    } else {
+                        // Diğer lint görevleri normal şekilde çalışsın
+                        // (İstersen buraya check veya assemble dependency ekleyebilirsin)
+                    }
+                }
             }
         }
     }
