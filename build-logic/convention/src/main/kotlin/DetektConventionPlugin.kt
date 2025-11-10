@@ -11,7 +11,17 @@ class DetektConventionPlugin : Plugin<Project> {
             pluginManager.apply("io.gitlab.arturbosch.detekt")
 
             extensions.configure<DetektExtension> {
-                config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+                val userConfig = file("$rootDir/config/detekt/detekt.yml")
+                if (userConfig.exists()) {
+                    config.setFrom(files(userConfig))
+                } else {
+                    val defaultConfig = javaClass.getResource("/config/detekt/detekt.yml")
+                    config.setFrom(
+                        files(
+                            defaultConfig?.path ?: "$rootDir/config/detekt/detekt.yml"
+                        )
+                    )
+                }
                 buildUponDefaultConfig = true
             }
 
