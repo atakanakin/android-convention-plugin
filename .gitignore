@@ -5,3 +5,10 @@ build
 local.properties
 .DS_Store
 *.hprof
+
+# Kotlin DSL
+.kotlin
+*.kotlin_module
+
+# Gradle Daemon
+.gradle-wrapper.properties.lock
