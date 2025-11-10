@@ -1,8 +1,10 @@
 plugins {
     `kotlin-dsl`
+    `maven-publish`
 }
 
-group = "dev.atakanakin.buildlogic"
+group = "dev.atakanakin.convention"
+version = "1.0.0"
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
@@ -36,6 +38,29 @@ gradlePlugin {
         register("spotless") {
             id = "dev.atakanakin.spotless"
             implementationClass = "SpotlessConventionPlugin"
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "dev.atakanakin.convention"
+            artifactId = "android-plugins"
+            version = "1.0.0"
+            
+            from(components["java"])
+        }
+    }
+    
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/atakanakin/android-convention-plugin")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gpr.user") as String?
+                password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.token") as String?
+            }
         }
     }
 }
