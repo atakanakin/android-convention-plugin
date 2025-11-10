@@ -101,6 +101,10 @@ plugins {
 
 Place your custom Detekt configuration at `config/detekt/detekt.yml` in your project root. If not found, the plugin will use its embedded default configuration.
 
+The plugin automatically includes Detekt plugins:
+- `detekt-formatting`: Code formatting rules
+- `detekt-compose`: Jetpack Compose specific rules
+
 ### Spotless
 
 The plugin automatically configures Spotless with sensible defaults. To customize ktlint rules, they can be overridden in the plugin configuration.
