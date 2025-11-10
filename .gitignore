@@ -7,7 +7,7 @@ local.properties
 *.hprof
 
 # Kotlin DSL
-.kotlin
+**/.kotlin
 *.kotlin_module
 
 # Gradle Daemon

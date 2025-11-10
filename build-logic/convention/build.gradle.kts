@@ -3,14 +3,18 @@ plugins {
     `maven-publish`
 }
 
-group = "dev.atakanakin.convention"
-version = "1.0.0"
+val conventionGroup: String by project
+val conventionArtifact: String by project
+val conventionVersion: String by project
+
+group = conventionGroup
+version = conventionVersion
 
 dependencies {
-    compileOnly(libs.android.gradlePlugin)
-    compileOnly(libs.kotlin.gradlePlugin)
-    compileOnly(libs.detekt.gradlePlugin)
-    compileOnly(libs.spotless.gradlePlugin)
+    implementation(libs.android.gradlePlugin)
+    implementation(libs.kotlin.gradlePlugin)
+    implementation(libs.detekt.gradlePlugin)
+    implementation(libs.spotless.gradlePlugin)
 }
 
 gradlePlugin {
@@ -45,9 +49,9 @@ gradlePlugin {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "dev.atakanakin.convention"
-            artifactId = "android-plugins"
-            version = "1.0.0"
+            groupId = conventionGroup
+            artifactId = conventionArtifact
+            version = conventionVersion
             
             from(components["java"])
         }
